@@ -1,5 +1,5 @@
 rootProject.name = 'marketplace'
-include 'web'
+include ':web'
 include 'service'
 include 'database'
 include 'common'
