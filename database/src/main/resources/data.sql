@@ -131,7 +131,7 @@ CREATE TABLE orders
 (
     id                 BIGSERIAL PRIMARY KEY,
     user_id            BIGINT REFERENCES users ON DELETE CASCADE,
-    order_date         DATE,
+    date_created       DATE,
     payment_method_id  BIGINT REFERENCES user_payment_method,
     shipping_method_id INT REFERENCES shipping_method,
     order_total        INT,
