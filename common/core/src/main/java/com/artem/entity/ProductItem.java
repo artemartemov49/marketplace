@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -23,4 +24,11 @@ public class ProductItem implements BaseEntity<Integer> {
 
     private Integer quantity;
     private Integer price;
+
+    @ManyToMany
+    @JoinTable(name = "product_item_variation_option",
+            joinColumns = {@JoinColumn(name = "product_item_id")},
+            inverseJoinColumns = {@JoinColumn(name = "variation_option_id")}
+    )
+    private List<VariationOption> productItems;
 }

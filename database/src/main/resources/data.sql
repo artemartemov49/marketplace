@@ -111,10 +111,10 @@ CREATE TABLE variation_option
 
 );
 
-CREATE TABLE product_configuration
+CREATE TABLE product_item_variation_option
 (
-    product_item_id     BIGINT NOT NULL REFERENCES product_item ON DELETE CASCADE,
-    variation_option_id INT    NOT NULL REFERENCES variation_option ON DELETE CASCADE,
+    product_item_id     INT NOT NULL REFERENCES product_item ON DELETE CASCADE,
+    variation_option_id INT NOT NULL REFERENCES variation_option ON DELETE CASCADE,
     UNIQUE (product_item_id, variation_option_id)
 );
 
@@ -128,8 +128,8 @@ CREATE TABLE shopping_cart_item
 (
     id              SERIAL PRIMARY KEY,
     cart_id         BIGINT NOT NULL REFERENCES shopping_cart ON DELETE CASCADE,
-    product_item_id INT NOT NULL REFERENCES product_item ON DELETE CASCADE,
-    quantity        INT NOT NULL
+    product_item_id INT    NOT NULL REFERENCES product_item ON DELETE CASCADE,
+    quantity        INT    NOT NULL
 );
 
 

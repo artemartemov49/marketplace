@@ -5,10 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -24,4 +22,6 @@ public class Merchant implements BaseEntity<Integer> {
     private String title;
     private String description;
 
+    @OneToMany(mappedBy = "merchant")
+    private List<Product> product;
 }
