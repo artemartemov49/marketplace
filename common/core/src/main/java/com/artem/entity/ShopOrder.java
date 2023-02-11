@@ -1,34 +1,23 @@
 package com.artem.entity;
 
+import lombok.*;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
-@EqualsAndHashCode(exclude = {"orderLines"})
-@ToString(exclude = {"orderLines"})
+@EqualsAndHashCode(exclude = {"orderLine", "shopOrder"})
+@ToString(exclude = {"orderLine", "shopOrder"})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-public class ShopOrder implements BaseEntity<Integer> {
+public class ShopOrder implements BaseEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @ManyToOne
     private User user;
@@ -39,12 +28,17 @@ public class ShopOrder implements BaseEntity<Integer> {
     @ManyToOne
     private ShippingMethod shippingMethod;
 
-    @OneToMany
+    @OneToMany(mappedBy = "shopOrder")
     @Builder.Default
-    private List<OrderLine> orderLines = new ArrayList<>();
+    private List<OrderAddress> orderAddresses = new ArrayList<>();
+
+    @OneToMany(mappedBy = "order")
+    @Builder.Default
+    private List<OrderLine> orderLine = new ArrayList<>();
 
     private Integer orderTotal;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "order_status")
     private OrderStatus status;
 }

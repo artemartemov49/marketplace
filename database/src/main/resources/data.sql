@@ -31,10 +31,10 @@ CREATE TABLE country
 
 CREATE TABLE order_address
 (
-    id         BIGSERIAL PRIMARY KEY,
-    order_id   BIGINT NOT NULL REFERENCES shop_order ON DELETE CASCADE,
-    address_id BIGINT NOT NULL REFERENCES address ON DELETE CASCADE,
-    is_default BOOLEAN DEFAULT FALSE
+    id            BIGSERIAL PRIMARY KEY,
+    shop_order_id BIGINT NOT NULL REFERENCES shop_order ON DELETE CASCADE,
+    address_id    BIGINT NOT NULL REFERENCES address ON DELETE CASCADE,
+    is_default    BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE user_payment_method
@@ -120,14 +120,14 @@ CREATE TABLE product_configuration
 
 CREATE TABLE shopping_cart
 (
-    id      SERIAL PRIMARY KEY,
-    user_id INT NOT NULL REFERENCES users ON DELETE CASCADE
+    id      BIGSERIAL PRIMARY KEY,
+    user_id BIGINT NOT NULL REFERENCES users ON DELETE CASCADE
 );
 
 CREATE TABLE shopping_cart_item
 (
     id              SERIAL PRIMARY KEY,
-    cart_id         INT NOT NULL REFERENCES shopping_cart ON DELETE CASCADE,
+    cart_id         BIGINT NOT NULL REFERENCES shopping_cart ON DELETE CASCADE,
     product_item_id INT NOT NULL REFERENCES product_item ON DELETE CASCADE,
     quantity        INT NOT NULL
 );
@@ -135,10 +135,10 @@ CREATE TABLE shopping_cart_item
 
 CREATE TABLE shop_order
 (
-    id                 SERIAL PRIMARY KEY,
+    id                 BIGSERIAL PRIMARY KEY,
     user_id            BIGINT REFERENCES users ON DELETE CASCADE,
     order_date         DATE,
-    payment_method_id  INT REFERENCES user_payment_method,
+    payment_method_id  BIGINT REFERENCES user_payment_method,
     shipping_method_id INT REFERENCES shipping_method,
     order_total        INT,
     order_status       VARCHAR(64)
@@ -159,9 +159,9 @@ CREATE TABLE order_status
 
 CREATE TABLE order_line
 (
-    id              SERIAL PRIMARY KEY,
+    id              BIGSERIAL PRIMARY KEY,
     product_item_id INT REFERENCES product_item ON DELETE CASCADE,
-    order_id        INT REFERENCES shop_order ON DELETE CASCADE,
+    order_id        BIGINT REFERENCES shop_order ON DELETE CASCADE,
     quantity        INT,
     price           INT
 

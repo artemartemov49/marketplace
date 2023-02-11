@@ -1,15 +1,11 @@
 package com.artem.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
@@ -25,7 +21,7 @@ public class Product implements BaseEntity<Integer> {
     private String description;
 
     @ManyToOne
-    private ProductCategory productCategory;
+    private ProductCategory category;
 
     @ManyToOne
     private Merchant merchant;

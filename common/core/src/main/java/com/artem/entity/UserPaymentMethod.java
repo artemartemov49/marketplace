@@ -1,18 +1,12 @@
 package com.artem.entity;
 
-import java.time.LocalDate;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -29,7 +23,7 @@ public class UserPaymentMethod implements BaseEntity<Long> {
     private PaymentType paymentType;
 
     @Enumerated(EnumType.STRING)
-    private Enum<Provider> provider;
+    private Provider provider;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;

@@ -1,24 +1,13 @@
 package com.artem.entity;
 
+import lombok.*;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
-@EqualsAndHashCode(exclude = {"userAddress"})
-@ToString(exclude = {"userAddress"})
+@EqualsAndHashCode(exclude = {"userPaymentMethods"})
+@ToString(exclude = {"userPaymentMethods"})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,8 +20,8 @@ public class User implements BaseEntity<Long> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String first_name;
-    private String last_name;
+    private String firstName;
+    private String lastName;
 
     private String email;
     private String phone;
@@ -44,8 +33,4 @@ public class User implements BaseEntity<Long> {
     @OneToMany(mappedBy = "user")
     @Builder.Default
     private List<UserPaymentMethod> userPaymentMethods = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user")
-    @Builder.Default
-    private List<OrderAddress> orderAddresses = new ArrayList<>();
 }
