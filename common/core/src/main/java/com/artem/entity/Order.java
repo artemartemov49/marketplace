@@ -6,8 +6,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@EqualsAndHashCode(exclude = {"orderLine", "shopOrder"})
-@ToString(exclude = {"orderLine", "shopOrder"})
+@EqualsAndHashCode(exclude = {"orderLine", "orderAddresses"})
+@ToString(exclude = {"orderLine", "orderAddresses"})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
