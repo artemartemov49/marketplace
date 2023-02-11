@@ -31,6 +31,9 @@ public class UserPaymentMethod implements BaseEntity<Long> {
     @Enumerated(EnumType.STRING)
     private Enum<Provider> provider;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
+
     private Integer accountNumber;
     private LocalDate expiryDate;
 

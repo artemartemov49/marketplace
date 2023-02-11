@@ -15,8 +15,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@EqualsAndHashCode(exclude = {"userAddress"})
-@ToString(exclude = {"userAddress"})
+@EqualsAndHashCode(exclude = {"orderAddresses"})
+@ToString(exclude = {"orderAddresses"})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -43,5 +43,5 @@ public class Address implements BaseEntity<Integer> {
 
     @OneToMany(mappedBy = "address")
     @Builder.Default
-    private List<UserAddress> userAddress = new ArrayList<>();
+    private List<OrderAddress> orderAddresses = new ArrayList<>();
 }

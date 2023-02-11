@@ -29,10 +29,10 @@ CREATE TABLE country
     name VARCHAR(64) NOT NULL UNIQUE
 );
 
-CREATE TABLE user_address
+CREATE TABLE order_address
 (
     id         BIGSERIAL PRIMARY KEY,
-    user_id    BIGINT NOT NULL REFERENCES users ON DELETE CASCADE,
+    order_id   BIGINT NOT NULL REFERENCES shop_order ON DELETE CASCADE,
     address_id BIGINT NOT NULL REFERENCES address ON DELETE CASCADE,
     is_default BOOLEAN DEFAULT FALSE
 );
@@ -167,29 +167,29 @@ CREATE TABLE order_line
 
 );
 
-CREATE TABLE user_review
-(
-    id               SERIAL PRIMARY KEY,
-    user_id          INT REFERENCES product_item,
-    order_product_id INT REFERENCES order_line ON DELETE CASCADE,
-    rating_value     INT,
-    comment          VARCHAR
+-- CREATE TABLE user_review
+-- (
+--     id               SERIAL PRIMARY KEY,
+--     user_id          INT REFERENCES product_item,
+--     order_product_id INT REFERENCES order_line ON DELETE CASCADE,
+--     rating_value     INT,
+--     comment          VARCHAR
+--
+-- );
 
-);
-
-CREATE TABLE promotion
-(
-    id            SERIAL PRIMARY KEY,
-    title         VARCHAR(64),
-    description   VARCHAR(512),
-    discount_rate INT,
-    start_date    DATE,
-    end_date      DATE
-);
-
-CREATE TABLE promotion_category
-(
-    category_id  INT NOT NULL REFERENCES product_category ON DELETE CASCADE,
-    promotion_id INT NOT NULL REFERENCES promotion ON DELETE CASCADE,
-    UNIQUE (category_id, promotion_id)
-);
+-- CREATE TABLE promotion
+-- (
+--     id            SERIAL PRIMARY KEY,
+--     title         VARCHAR(64),
+--     description   VARCHAR(512),
+--     discount_rate INT,
+--     start_date    DATE,
+--     end_date      DATE
+-- );
+--
+-- CREATE TABLE promotion_category
+-- (
+--     category_id  INT NOT NULL REFERENCES product_category ON DELETE CASCADE,
+--     promotion_id INT NOT NULL REFERENCES promotion ON DELETE CASCADE,
+--     UNIQUE (category_id, promotion_id)
+-- );

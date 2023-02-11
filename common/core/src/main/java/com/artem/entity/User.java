@@ -43,5 +43,9 @@ public class User implements BaseEntity<Long> {
 
     @OneToMany(mappedBy = "user")
     @Builder.Default
-    private List<UserAddress> userAddress = new ArrayList<>();
+    private List<UserPaymentMethod> userPaymentMethods = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    @Builder.Default
+    private List<OrderAddress> orderAddresses = new ArrayList<>();
 }

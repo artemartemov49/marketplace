@@ -16,14 +16,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity
-public class UserAddress implements BaseEntity<Long> {
+public class OrderAddress implements BaseEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
+    private ShopOrder shopOrder;
 
     @ManyToOne
     private Address address;
