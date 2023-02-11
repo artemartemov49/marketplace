@@ -9,6 +9,11 @@ CREATE TABLE users
     role       VARCHAR(16)
 );
 
+CREATE TABLE country
+(
+    id   SERIAL PRIMARY KEY,
+    name VARCHAR(64) NOT NULL UNIQUE
+);
 
 CREATE TABLE address
 (
@@ -23,18 +28,10 @@ CREATE TABLE address
     country_id    INT REFERENCES country
 );
 
-CREATE TABLE country
+CREATE TABLE payment_type
 (
-    id   SERIAL PRIMARY KEY,
-    name VARCHAR(64) NOT NULL UNIQUE
-);
-
-CREATE TABLE order_address
-(
-    id            BIGSERIAL PRIMARY KEY,
-    shop_order_id BIGINT NOT NULL REFERENCES shop_order ON DELETE CASCADE,
-    address_id    BIGINT NOT NULL REFERENCES address ON DELETE CASCADE,
-    is_default    BOOLEAN DEFAULT FALSE
+    id    SERIAL PRIMARY KEY,
+    value VARCHAR(32) NOT NULL UNIQUE
 );
 
 CREATE TABLE user_payment_method
@@ -46,12 +43,6 @@ CREATE TABLE user_payment_method
     account_number  INT,
     expiry_date     DATE,
     is_default      BOOLEAN DEFAULT FALSE
-);
-
-CREATE TABLE payment_type
-(
-    id    SERIAL PRIMARY KEY,
-    value VARCHAR(32) NOT NULL UNIQUE
 );
 
 CREATE TABLE merchant
@@ -87,7 +78,7 @@ CREATE TABLE product_image
     product_item_id INT REFERENCES product_item
 );
 
-
+--  self-join Phone, Shoes, TV
 CREATE TABLE product_category
 (
     id                 SERIAL PRIMARY KEY,
@@ -95,6 +86,7 @@ CREATE TABLE product_category
     parent_category_id INT REFERENCES product_category
 );
 
+-- size, color, memory etc
 CREATE TABLE variation
 (
     id          SERIAL PRIMARY KEY,
@@ -102,7 +94,7 @@ CREATE TABLE variation
     category_id INT REFERENCES product_category ON DELETE CASCADE
 );
 
-
+-- XL, Black, 1 gb.
 CREATE TABLE variation_option
 (
     id           SERIAL PRIMARY KEY,
@@ -118,12 +110,14 @@ CREATE TABLE product_item_variation_option
     UNIQUE (product_item_id, variation_option_id)
 );
 
+-- while cart. for example it contains (Milk, Ipad, Apple)
 CREATE TABLE shopping_cart
 (
     id      BIGSERIAL PRIMARY KEY,
     user_id BIGINT NOT NULL REFERENCES users ON DELETE CASCADE
 );
 
+-- cart item (Milk)
 CREATE TABLE shopping_cart_item
 (
     id              SERIAL PRIMARY KEY,
@@ -133,7 +127,7 @@ CREATE TABLE shopping_cart_item
 );
 
 
-CREATE TABLE shop_order
+CREATE TABLE orders
 (
     id                 BIGSERIAL PRIMARY KEY,
     user_id            BIGINT REFERENCES users ON DELETE CASCADE,
@@ -142,6 +136,14 @@ CREATE TABLE shop_order
     shipping_method_id INT REFERENCES shipping_method,
     order_total        INT,
     order_status       VARCHAR(64)
+);
+
+CREATE TABLE order_address
+(
+    id         BIGSERIAL PRIMARY KEY,
+    order_id   BIGINT NOT NULL REFERENCES orders ON DELETE CASCADE,
+    address_id BIGINT NOT NULL REFERENCES address ON DELETE CASCADE,
+    is_default BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE shipping_method
@@ -161,7 +163,7 @@ CREATE TABLE order_line
 (
     id              BIGSERIAL PRIMARY KEY,
     product_item_id INT REFERENCES product_item ON DELETE CASCADE,
-    order_id        BIGINT REFERENCES shop_order ON DELETE CASCADE,
+    order_id        BIGINT REFERENCES orders ON DELETE CASCADE,
     quantity        INT,
     price           INT
 

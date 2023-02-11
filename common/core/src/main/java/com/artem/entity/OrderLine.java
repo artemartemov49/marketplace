@@ -22,6 +22,6 @@ public class OrderLine implements BaseEntity<Long> {
     private ProductItem productItem;
 
     @ManyToOne
-    private ShopOrder order;
+    private Order order;
 
 }

@@ -13,7 +13,8 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-public class ShopOrder implements BaseEntity<Long> {
+@Table(name = "orders")
+public class Order implements BaseEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +29,7 @@ public class ShopOrder implements BaseEntity<Long> {
     @ManyToOne
     private ShippingMethod shippingMethod;
 
-    @OneToMany(mappedBy = "shopOrder")
+    @OneToMany(mappedBy = "order")
     @Builder.Default
     private List<OrderAddress> orderAddresses = new ArrayList<>();
 

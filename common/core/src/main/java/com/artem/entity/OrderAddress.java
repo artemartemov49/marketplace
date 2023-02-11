@@ -19,7 +19,7 @@ public class OrderAddress implements BaseEntity<Long> {
     private Long id;
 
     @ManyToOne
-    private ShopOrder shopOrder;
+    private Order order;
 
     @ManyToOne
     private Address address;
